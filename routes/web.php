@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WisataController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,11 @@ Route::view('profile', 'profile')
 
 Route::resource('wisata', WisataController::class);
 Route::resource('pelanggan', PelangganController::class);
+Route::resource('transaksi', TransaksiController::class);
+Route::get('pembayaran', [TransaksiController::class, 'pembayaran'])->name('transaksi.pembayaran');
+Route::post('pembayaran-proses', [TransaksiController::class, 'pembayaran_proses'])->name('transaksi.pembayaran.proses');
+
+Route::get('/get-harga/{id}', [TransaksiController::class, 'getHarga']);
 
 
 require __DIR__.'/auth.php';

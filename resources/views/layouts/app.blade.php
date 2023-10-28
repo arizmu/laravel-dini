@@ -77,13 +77,13 @@
             </div>
 
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route('transaksi.index')}}">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Pemesanan</span></a>
             </li>
 
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route('transaksi.pembayaran')}}">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Pembayaran</span></a>
             </li>
