@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KeranjangTiket;
 use App\Models\Tiket;
 use App\Models\TiketDetail;
 use App\Models\Transaksi;
@@ -112,7 +113,47 @@ class TiketController extends Controller
             return redirect()->back()->with('success', 'Tiket berhasil dihapus!');
         } catch (\Throwable $th) {
             DB::rollBack();
-           return redirect()->back()->with('error', $th->getMessage());
+            return redirect()->back()->with('error', $th->getMessage());
         }
+    }
+
+
+    public function detailTiket($key)
+    {
+
+        $data = Tiket::with('detail')->find($key);
+        $tiket = [];
+        foreach ($data->detail as $value) {
+            $wisata = Wisata::find($value->wisata_21136);
+            $tiket[] = [
+                'wisata' => $wisata->wisata,
+                'jumlah_tiket' => $value->jumlah_tiket
+            ];
+        }
+        return view('tiket-detail', [
+            'data' => $data,
+            'tiket' => $tiket
+        ]);
+    }
+
+    public function addChart($key)
+    {
+        $query = KeranjangTiket::where('tiket_21136_id', $key)->where('user_id', auth()->user()->id)->first();
+        if ($query) {
+            DB::table('keranjang_tiket_21136')
+                ->where('tiket_21136_id', $key)
+                ->where('user_id', auth()->user()->id)
+                ->update([
+                    'jumlah' => $query->jumlah + 1
+                ]);
+        } else {
+            KeranjangTiket::insert([
+                'tiket_21136_id' => $key,
+                'jumlah' => 1,
+                'user_id' => auth()->user()->id
+            ]);
+        }
+
+        return to_route('chart.list');
     }
 }

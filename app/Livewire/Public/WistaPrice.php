@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Public;
 
+use App\Models\Tiket;
 use App\Models\Wisata;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,9 +19,7 @@ class WistaPrice extends Component
 
     public function render()
     {
-        $query = Wisata::when($this->query, function ($query) {
-            $query->where('wisata', 'like', '%' . $this->query . '%');
-        });
+        $query = Tiket::with('detail');
 
         return view('livewire.public.wista-price', [
             'data' => $query->paginate(9)

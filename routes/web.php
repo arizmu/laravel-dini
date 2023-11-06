@@ -51,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-harga/{id}', [TransaksiController::class, 'getHarga']); //JSON
 });
 
+Route::get('/tiket/detail/{key}', [TiketController::class, 'detailTiket'])->name('tiket.detail');
+Route::get('/add/chart/{key}', [TiketController::class, 'addChart'])->name('add.chart.tiket')->middleware('auth');
 
 Route::get('/logout', function () {
     auth()

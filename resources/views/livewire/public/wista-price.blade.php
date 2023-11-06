@@ -14,7 +14,6 @@
             </div>
         </div>
     </div>
-    <h2>{{ $number }}</h2>
     <div class="row">
         @if ($data)
             @foreach ($data as $item)
@@ -23,14 +22,13 @@
                         <img class="card-img-top" src="https://www.wiratourmakassar.com/images/malino-main.jpg"
                             alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">{{ $item->wisata }}</h5>
+                            <h5 class="card-title">{{ $item->title }}</h5>
                             <p class="card-text">
-                                Harga Tiket : {{ $item->harga_tiket_perorangan }}/Orang
+                                Harga Tiket : Rp. {{ $item->harga }}
                             </p>
-                            <a class="btn btn-primary" href="#">Lihat</a>
-                            <button class="btn btn-primary" type="button" wire:click="addChart({{ $item->id }})"
-                                wire:confirm="Add Ticket to chart list ?">Add chart</button>
-                            <a class="btn btn-primary" href="#">Buy</a>
+                            <a class="btn btn-primary" href="{{ route('tiket.detail', $item->id) }}">Lihat</a>
+
+                            <a class="btn btn-warning text-white" href="{{ route('add.chart.tiket', $item->id) }}">Add to chart</a>
                         </div>
                     </div>
                 </div>
