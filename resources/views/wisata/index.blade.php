@@ -19,7 +19,7 @@
                                 <th>No.</th>
                                 <th>Nama Wisata</th>
                                 <th>Lokasi</th>
-                                <th>Harga Tiket</th>
+                                <th>Gambar</th>
                                 <th>Action</th>
                         </thead>
                         <tbody>
@@ -31,7 +31,7 @@
                                     <td>{{ $number++ }}</td>
                                     <td>{{ $item->wisata }}</td>
                                     <td>{{ $item->lokasi }}</td>
-                                    <td>{{ $item->harga_tiket_perorangan }}</td>
+                                    <td>{{ $item->getFirstMediaUrl() }}</td>
                                     <td>
                                         <form action="{{ route('wisata.destroy', $item->id) }}" method="POST">
                                             @csrf

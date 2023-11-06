@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pembayarans', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('pemesanan_id')->nullable()->constrained();
-            $table->string('jumlah_bayar')->nullable();
-            $table->char('status_bayar')->default('0');
-            $table->date('tanggal_bayar')->nullable();
+        Schema::create('tiket_detail_21136', function (Blueprint $table) {
+            $table->foreignId('tiket_21136_id')->references('id')->on('tiket_21136')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('wisata_21136_id')->references('id')->on('wisata_21136')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->integer("jumlah_tiket");
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pembayarans');
+        Schema::dropIfExists('tiket_detail_21136');
     }
 };

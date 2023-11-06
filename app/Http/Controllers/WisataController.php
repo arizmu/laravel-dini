@@ -14,6 +14,9 @@ class WisataController extends Controller
     public function index()
     {
         $data = Wisata::paginate(10);
+        // $data->getMedia('wisata');
+
+        // return $data;
         return view('wisata.index', ['data' => $data]);
     }
 
@@ -30,11 +33,15 @@ class WisataController extends Controller
      */
     public function store(Request $request)
     {
-        Wisata::create([
+        $query = Wisata::create([
             'wisata' => $request->wisata,
-            'harga_tiket_perorangan' => $request->harga,
+            'desc' => $request->desc,
             'lokasi' => $request->lokasi
         ]);
+
+        if ($request->hasFile('image')) {
+            $query->addMedia($request->file('image'))->toMediaCollection('wisata');
+        }
 
         return to_route('wisata.index');
     }
@@ -44,7 +51,6 @@ class WisataController extends Controller
      */
     public function show(string $id)
     {
-
     }
 
     /**
@@ -65,7 +71,7 @@ class WisataController extends Controller
         $data->update([
             'wisata' => $request->wisata,
             'lokasi' => $request->lokasi,
-            'harga_tiket_perorangan' => $request->harga,
+            'desc' => $request->desc,
         ]);
         return to_route('wisata.index');
     }

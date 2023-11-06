@@ -1,8 +1,15 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\TiketController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WisataController;
+use App\Livewire\Chart\ChartIndex;
+use App\Livewire\Chart\ChartList;
+use App\Livewire\Chart\ChartPembayaran;
+use App\Livewire\Chart\ChartTiketAktif;
+use App\Livewire\Chart\ChartTiketExp;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +23,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
+Route::view('/', 'index');
+Route::get('detail/{key}', [HomeController::class, 'wisata'])->name('wisata.detail');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -26,13 +34,32 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::resource('wisata', WisataController::class);
-Route::resource('pelanggan', PelangganController::class);
-Route::resource('transaksi', TransaksiController::class);
-Route::get('pembayaran', [TransaksiController::class, 'pembayaran'])->name('transaksi.pembayaran');
-Route::post('pembayaran-proses', [TransaksiController::class, 'pembayaran_proses'])->name('transaksi.pembayaran.proses');
+Route::middleware('auth')->group(function () {
+    Route::resource('wisata', WisataController::class);
+    Route::resource('pelanggan', PelangganController::class);
+    Route::resource('transaksi', TransaksiController::class);
+    Route::resource('tiketing', TiketController::class);
 
-Route::get('/get-harga/{id}', [TransaksiController::class, 'getHarga']);
+    Route::prefix('tiket')->group(function () {
+        // Route::get('/chart', ChartIndex::class)->name('chart.index');
+        Route::get('/list', ChartList::class)->name('chart.list');
+        Route::get('/bayar', ChartPembayaran::class)->name('chart.bayar');
+        Route::get('/aktif', ChartTiketAktif::class)->name('chart.aktif');
+        Route::get('/exp', ChartTiketExp::class)->name('chart.exp');
+    });
+
+    Route::get('/get-harga/{id}', [TransaksiController::class, 'getHarga']); //JSON
+});
 
 
-require __DIR__.'/auth.php';
+Route::get('/logout', function () {
+    auth()
+        ->guard('web')
+        ->logout();
+
+    session()->invalidate();
+    session()->regenerateToken();
+    return to_route('login');
+})->middleware('auth');
+
+require __DIR__ . '/auth.php';

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wisatas', function (Blueprint $table) {
+        Schema::create('wisata_21136', function (Blueprint $table) {
             $table->id();
             $table->string('wisata')->nullable();
-            $table->string('harga_tiket_perorangan')->nullable();
+            $table->text('desc')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wisatas');
+        Schema::dropIfExists('wisata_21136');
     }
 };

@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pemesanans', function (Blueprint $table) {
-            $table->boolean('status')->default(0)->after('total_harga');
+        Schema::create('keranjang_tiket_21136', function (Blueprint $table) {
+            $table->foreignId('tiket_21136_id')->references('id')->on('tiket_21136')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->integer('jumlah')->nullable();
         });
     }
 
@@ -21,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pemesanans', function (Blueprint $table) {
-            $table->dropColumn('status');
-        });
+        Schema::dropIfExists('keranjang_tiket_21136');
     }
 };

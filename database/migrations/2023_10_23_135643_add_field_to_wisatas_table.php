@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('wisatas', function (Blueprint $table) {
+        Schema::table('wisata_21136', function (Blueprint $table) {
             $table->text('lokasi')->nullable()->after('wisata');
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('wisatas', function (Blueprint $table) {
+        Schema::table('wisata_21136', function (Blueprint $table) {
             //
         });
     }

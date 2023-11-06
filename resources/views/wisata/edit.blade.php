@@ -24,9 +24,8 @@
                         <textarea class="form-control" name="lokasi">{{ $wisata->lokasi }}</textarea>
                     </div>
                     <div class="form-group">
-                        <label for="">Harga Tiket</label>
-                        <input class="form-control" name="harga" type="text"
-                            value="{{ $wisata->harga_tiket_perorangan }}">
+                        <label for="">Deskripsi</label>
+                        <textarea name="desc" class="form-control" id="" cols="30" rows="10">{{$wisata->desc}}</textarea>
                     </div>
                 </div>
                 <div class="card-footer">

@@ -9,8 +9,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.guest')] class extends Component
-{
+new #[Layout('layouts.guest')] class extends Component {
     #[Rule(['required', 'string', 'email'])]
     public string $email = '';
 
@@ -26,7 +25,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         $this->ensureIsNotRateLimited();
 
-        if (! auth()->attempt($this->only(['email', 'password'], $this->remember))) {
+        if (!auth()->attempt($this->only(['email', 'password'], $this->remember))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -38,15 +37,12 @@ new #[Layout('layouts.guest')] class extends Component
 
         session()->regenerate();
 
-        $this->redirect(
-            session('url.intended', RouteServiceProvider::HOME),
-            navigate: true
-        );
+        $this->redirect(session('url.intended', RouteServiceProvider::HOME), navigate: true);
     }
 
     protected function ensureIsNotRateLimited(): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -64,7 +60,7 @@ new #[Layout('layouts.guest')] class extends Component
 
     protected function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->email).'|'.request()->ip());
+        return Str::transliterate(Str::lower($this->email) . '|' . request()->ip());
     }
 }; ?>
 
@@ -72,7 +68,7 @@ new #[Layout('layouts.guest')] class extends Component
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form wire:submit="login">
+    {{-- <form wire:submit="login">
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -111,5 +107,55 @@ new #[Layout('layouts.guest')] class extends Component
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
-    </form>
+    </form> --}}
+
+    <section class="pt-5" id="featuresVideos">
+        <div class="container">
+            <div class="row flex-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h1 class="fw-bold fs-md-3 fs-lg-4 fs-xl-5">
+                        Form Login
+                    </h1>
+                    <hr class="text-primary mx-auto my-4" style="height:3px; width:70px;" />
+                    <form wire:submit="login">
+                        <div class="row h-100 justify-content-center align-items-center">
+                            <div class="card" style="width: 25rem;">
+                                <div class="card-body">
+                                    <div class="mb-4">
+                                        <div>
+                                            {{-- <x-input-label class="text-start\" for="email" :value="__('Email')" /> --}}
+                                            <x-text-input class="form-control" id="email" name="email"
+                                                type="email" style="color:rgb(3, 3, 3)" wire:model="email" required
+                                                autofocus autocomplete="username" placeholder="email" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        {{-- <x-input-label for="password" :value="__('Password')" /> --}}
+                                        <x-text-input class="form-control" id="password" name="password"
+                                            type="password" style="color:rgb(3, 3, 3)" wire:model="password" required
+                                            autocomplete="current-password" placeholder="password" />
+
+                                        <x-input-error class="mt-2" :messages="$errors->get('password')" />
+                                    </div>
+                                    <div class="">
+                                        <label class="inline-flex items-center" for="remember">
+                                            <input
+                                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                                id="remember" name="remember" type="checkbox" wire:model="remember">
+                                            <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-primary w-100">Login</button>
+                                    <a href="/register" class="">Register</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

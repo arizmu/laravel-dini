@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Pelanggan extends Model
 {
     use HasFactory;
+    protected $table = "pelanggan_21136";
     protected $guarded = [];
 
     /**

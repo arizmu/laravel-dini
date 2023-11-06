@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pemesanans', function (Blueprint $table) {
+        Schema::create('tiket_21136', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('wisata_id')->nullable()->references('id')->on('wisatas')->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId('pelanggan_id')->nullable()->references('id')->on('pelanggans')->cascadeOnUpdate()->nullOnDelete();
-            $table->string('jumlah_tiket')->nullable();
-            $table->date('tanggal_pemesanana')->nullable();
-            $table->string('harga_tiket')->nullable();
-            $table->string('total_harga')->nullable();
+            $table->string('title')->nullable();
+            $table->text('desc')->nullable();
+            $table->string('harga')->nullable();
+            $table->integer('kouta_tiket')->nullable();
+            $table->date('masa_berlaku')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pemesanans');
+        Schema::dropIfExists('tiket_21136');
     }
 };
