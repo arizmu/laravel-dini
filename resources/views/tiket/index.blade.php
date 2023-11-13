@@ -51,9 +51,10 @@
                                         <form action="{{ route('tiketing.destroy', $item->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <a class="btn btn-warning" href="{{ route('wisata.edit', $item->id) }}"
+                                            <a href="{{route('tiket.detail', $item->id)}}" class="btn btn-sm btn-info" target="_blank">Detail</a>
+                                            <a class="btn btn-sm btn-warning" href="{{ route('tiketing.edit', $item->id) }}"
                                                 href="">Edit</a>
-                                            <button class="btn btn-danger">Hapus</button>
+                                            <button class="btn btn-sm btn-danger">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>

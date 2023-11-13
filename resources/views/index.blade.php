@@ -8,13 +8,16 @@
         <div class="position-relative container">
             <div class="row align-items-center min-vh-75 my-lg-8">
                 <div class="col-md-7 col-lg-6 text-md-start py-8 text-center">
-                    <h1 class="display-1 lh-sm mb-4">
+                    <h1 class="display-1 lh-sm fw-atomic mb-4">
                         Tiket Wisata <br class="d-block d-lg-none d-xl-block" />Malino
                     </h1>
-                    <p class="fs-1 lh-base mb-5 mt-4">Plan and book your perfect trip with expert advice, <br
-                            class="d-none d-lg-block" />travel tips, destination information and <br
-                            class="d-none d-lg-block" />inspiration from us.</p><a
-                        class="btn btn-lg btn-primary hover-top" href="#" role="button">Sign Up Now</a>
+                    <p class="fs-1 lh-base mb-5 mt-4 fw-baloo">
+                        Plan and book your perfect trip with expert advice, <br class="d-none d-lg-block" />travel tips,
+                        destination information and <br class="d-none d-lg-block" />inspiration from us.
+                    </p>
+                    <a class="btn btn-lg btn-primary hover-top fw-baloo" href="/register" role="button">
+                        Daftar Beli Tiket
+                    </a>
 
                 </div>
             </div>

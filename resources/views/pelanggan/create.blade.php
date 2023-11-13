@@ -11,7 +11,7 @@
                     <a class="btn btn-info" href="{{ route('pelanggan.index') }}">Kembali</a>
                 </div>
             </div>
-            <form action="{{route('pelanggan.store')}}" method="POST">
+            <form action="{{route('pelanggan.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">

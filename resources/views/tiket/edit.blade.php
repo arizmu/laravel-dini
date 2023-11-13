@@ -3,16 +3,16 @@
     @endpush
     <div class="container-fluid">
         <div class="d-flex justify-content-between">
-            <h5 class="mt-2">Form Tiket</h5>
-            <a class="btn btn-info" href="{{ route('tiketing.create') }}">Tambah tiket baru</a>
+            <h4 class="mt-2">Form Edit Tiket</h4>
         </div>
-        <form action="{{ route('tiketing.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('tiketing.update', $data->id) }}" method="post" enctype="multipart/form-data">
+            @method('PUT')
             @csrf
             <div class="row mt-3">
                 <div class="col-md-7">
                     <div class="card">
                         <div class="card-header bg-info">
-                            <h5 class="text-white mt-2">Wisata</h5>
+                            <h5 class="mt-2 text-white">Wisata</h5>
                         </div>
                         <div class="card-body">
                             @if ($errors->any())
@@ -26,15 +26,21 @@
                             @endif
                             <table class="table-hover table-bordered table">
                                 @foreach ($wisata as $item)
+                                    @php
+                                       $tiket=  $data->detail->where('wisata_21136', $item->id)->first();
+                                    @endphp
+
                                     <tr>
                                         <td>
                                             <input name="item[{{ $item->wisata }}][kode]" type="checkbox"
-                                                value="{{ $item->id }}">
+                                                value="{{ $item->id }}" @if ($tiket)
+                                                    {{"checked"}}
+                                                @endif>
                                         </td>
                                         <td style="width: 300pt">{{ $item->wisata ?? '' }}</td>
                                         <td>
                                             <input class="form-control" name="item[{{ $item->wisata }}][jumlah]"
-                                                type="number">
+                                                type="number" value="{{ "" }}">
                                         </td>
                                     </tr>
                                 @endforeach
@@ -45,7 +51,7 @@
                 <div class="col-md-5">
                     <div class="card">
                         <div class="card-header bg-info">
-                            <h5 class="text-white mt-2">Tiket Form</h5>
+                            <h5 class="mt-2 text-white">Tiket Form</h5>
                         </div>
                         <div class="card-body">
                             <div class="form-group">

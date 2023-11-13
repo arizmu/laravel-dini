@@ -38,7 +38,15 @@ Route::middleware('auth')->group(function () {
     Route::resource('wisata', WisataController::class);
     Route::resource('pelanggan', PelangganController::class);
     Route::resource('transaksi', TransaksiController::class);
-    Route::resource('tiketing', TiketController::class);
+    Route::resource('tiketing', TiketController::class, ['except' => [
+        // 'index',
+        // 'create',
+        // 'store',
+        // 'edit',
+        // 'destroy',
+        // 'udpated',
+        'show'
+    ]]);
 
     Route::prefix('tiket')->group(function () {
         // Route::get('/chart', ChartIndex::class)->name('chart.index');
@@ -53,6 +61,13 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/tiket/detail/{key}', [TiketController::class, 'detailTiket'])->name('tiket.detail');
 Route::get('/add/chart/{key}', [TiketController::class, 'addChart'])->name('add.chart.tiket')->middleware('auth');
+Route::post('/bayar/action', [TiketController::class, 'bayar'])->name('tiket.bayar');
+Route::get('cetak/{key}', [TiketController::class, 'cetak'])->name('cetak.tiket');
+Route::get('validasi/tiket', [TiketController::class, 'validasi'])->name('tiket.validasi');
+Route::get('/validasi/proses/{key}', [TiketController::class, 'validasiProses'])->name('tiket.validasi.proses');
+Route::get('/tiket/dt/{key}', [TiketController::class, 'tiketTransaksiDetail'])->name('tiket.detail.key');
+Route::get('/lihat/tiket/detail/{key}', [TiketController::class, 'lihatTiket'])->name('tiket.lihat.detail');
+
 
 Route::get('/logout', function () {
     auth()

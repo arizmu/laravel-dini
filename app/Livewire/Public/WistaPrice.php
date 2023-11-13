@@ -12,6 +12,7 @@ class WistaPrice extends Component
     use WithPagination;
     public $number = 1;
     public $query = "";
+
     public function search()
     {
         $this->resetPage();
@@ -19,7 +20,9 @@ class WistaPrice extends Component
 
     public function render()
     {
-        $query = Tiket::with('detail');
+        $query = Tiket::with('detail')->when($this->query, function($result) {
+            $result->where('title', 'like', '%'.$this->query.'%');
+        });
 
         return view('livewire.public.wista-price', [
             'data' => $query->paginate(9)

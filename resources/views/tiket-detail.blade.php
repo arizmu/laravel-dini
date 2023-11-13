@@ -30,12 +30,18 @@
                                 </td>
                             </tr>
                         @endif
-
-                        <td colspan="2">
-                            <h4 class="text-white">
-                                Rp. {{ $data->harga }}
-                            </h4>
-                        </td>
+                        <tr>
+                            <td colspan="2">
+                                <h4 class="text-white">
+                                    Rp. {{ $data->harga }}
+                                </h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-white">
+                                {{ $data->desc }}
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <div class="card-footer bg-info">
